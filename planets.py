@@ -7,7 +7,6 @@ import statsmodels.formula.api as smf
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
-from sklearn.metrics import mean_squared_error
 
 df_adv = pd.read_csv('planets.csv')
 print(df_adv.head(9))
