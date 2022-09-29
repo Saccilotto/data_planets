@@ -1,31 +1,19 @@
-# Bring data into workspace and replicate plots
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-#%matplotlib inline
-
 import seaborn as sns
-
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
-
 from sklearn.model_selection import train_test_split
-
 from sklearn.linear_model import LinearRegression
-
 from sklearn.metrics import mean_squared_error
-
-
 from sklearn.metrics import mean_squared_error
 
 df_adv = pd.read_csv('planets.csv')
-df_adv = df_adv.iloc[1: , :] #remove primeira linha.
-df_adv.head(9)
-
+print(df_adv.head(9))
 df_adv.describe()
 
 # Based on RotationPeriod
-
 df_adv.hist(column=["RotationPeriod", "DistancefromSun","Perihelion", "Aphelion"], layout=(1,4), figsize=(16,4))
 
 df_adv.plot.scatter(x='DistancefromSun', y='RotationPeriod')
@@ -41,7 +29,6 @@ sns.regplot(x = df_adv.Perihelion, y = df_adv.RotationPeriod, order=1, ci=None, 
 sns.regplot(x = df_adv.Aphelion, y = df_adv.RotationPeriod, order=1, ci=None, scatter_kws={'color':'r', 's':9})
 
 # Based on LengthofDay
-
 df_adv.hist(column=["LengthofDay", "DistancefromSun","Perihelion", "Aphelion"], layout=(1,4), figsize=(16,4))
 
 df_adv.plot.scatter(x='DistancefromSun', y='LengthofDay')
@@ -57,7 +44,6 @@ sns.regplot(x = df_adv.Perihelion, y = df_adv.LengthofDay, order=1, ci=None, sca
 sns.regplot(x = df_adv.Aphelion, y = df_adv.LengthofDay, order=1, ci=None, scatter_kws={'color':'r', 's':9})
 
 # Based on RotationPeriod
-
 est = smf.ols('RotationPeriod ~ DistancefromSun', df_adv).fit()
 print('Sumario do modelo DistanFromSun em Relacao a RotationPeriod: ', est.summary())
 print('Resíduo: ', np.sqrt(est.mse_resid))
@@ -88,7 +74,6 @@ plt.xlabel("Aphelion", fontsize=14)
 plt.ylabel("RotationPeriod", fontsize=14)
 
 # Based on LengthofDay
-
 est = smf.ols('LengthofDay ~ DistancefromSun', df_adv).fit()
 print('Sumario do modelo DistancefromSun em Relacao a LengthofDay: ', est.summary())
 print('Resíduo: ', np.sqrt(est.mse_resid))
@@ -163,4 +148,6 @@ MSE_test = mean_squared_error(y_test_modeloDayLength, y_test)
 MSE_modelo = [MSE_train, MSE_test]
 
 print('Projeções de Treino e Teste para o modelo (modeloDayLength): ', MSE_modelo)
+
+plt.show()
 
